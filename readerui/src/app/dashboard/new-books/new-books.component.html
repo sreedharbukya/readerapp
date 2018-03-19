@@ -1,0 +1,48 @@
+<section>
+  <div>
+    <h3>New books added</h3>
+    <alert></alert>
+    <div *ngIf="books && !loading">
+      <div class="col-sm-9 padding-right">
+        <div class="features_items">
+          <table *ngFor="let book of books">
+            <tr class="col-md-6">
+              <div class="product-image-wrapper">
+                <div class="single-products" style="display: inline-flex; flex-wrap: wrap">
+                  <div class="productinfo text-center">
+                    <img src="../../../assets/images/bookimage.jpg" style="width: 35%; height: auto" alt=""/>
+                    <h3>{{book.title}}</h3>
+                    <small>{{book.isbn_number}}</small>
+                    <div *ngIf="book?.overall_rating">
+                      <ngb-rating [rate]="book.overall_rating.average" max="5" readonly="true"></ngb-rating>
+                    </div>
+                    <a [routerLink]="['/dashboard/book-rating', book.isbn_number]"
+                       class="btn btn-default add-to-cart"><i
+                      class="fa fa-shopping-cart"></i>Reviews
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </tr>
+            <tr class="col-md-6" *ngIf="formsMap && formsMap.has(book.isbn_number)">
+              <review-submit (formSubmitted)="createReview($event, book.isbn_number)" [book]="book"
+                             [reviewForm]="formsMap.get(book.isbn_number)"></review-submit>
+
+              <span class="clearfix"></span>
+              <br>
+            </tr>
+          </table>
+        </div>
+        <div *ngIf="books.length === 0">
+          <p>No New Books available now</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading">
+    <p>
+      <ngb-progressbar type="success" [value]="100" [animated]="true" [striped]="true"></ngb-progressbar>
+    </p>
+  </div>
+</section>

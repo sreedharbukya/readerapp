@@ -1,0 +1,29 @@
+<!-- main app container -->
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-2">
+    <div>
+      <h2>Login</h2>
+
+
+      <alert></alert>
+      <div *ngIf="loginForm">
+        <form [formGroup]="loginForm" novalidate (ngSubmit)="submit(loginForm.value)">
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Username</label>
+            <input class="form-control " placeholder="username" formControlName="username">
+            <small
+              [hidden]="loginForm.controls.username.valid || (loginForm.controls.username.pristine)">
+              Username is required. Minimum is 8 characters
+            </small>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+          <a class="btn btn-primary" (click)="redirectToSingup()">Signup</a>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

@@ -1,0 +1,36 @@
+<section>
+  <h3>Books added by me recently</h3>
+  <div *ngIf="books">
+
+    <div class="col-sm-9 padding-right">
+      <div class="features_items">
+        <div class="col-sm-4" *ngFor="let book of books">
+          <div class="product-image-wrapper">
+            <div class="single-products">
+              <div class="productinfo text-center">
+                <img src="../../../assets/images/bookimage.jpg" style="width: 35%; height: auto" alt=""/>
+                <h3>{{book.title}}</h3>
+                <small>{{book.isbn_number}}</small>
+                <div *ngIf="book?.overall_rating">
+                  <ngb-rating [rate]="book.overall_rating.average" max="5" [readonly]="true"></ngb-rating>
+                  <small><p>{{book.overall_rating.total_count}} voting</p></small>
+                </div>
+                <a [routerLink]="['/dashboard/book-rating', book.isbn_number]"
+                       class="btn btn-default add-to-cart"><i
+                      class="fa fa-shopping-cart"></i>Your Review
+                    </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <p>
+      <ngb-progressbar type="success" [value]="100" [animated]="true" [striped]="true"></ngb-progressbar>
+    </p>
+  </div>
+
+</section>

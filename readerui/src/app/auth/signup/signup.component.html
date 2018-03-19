@@ -1,0 +1,82 @@
+<div class="container">
+<div class="col-sm-6 col-sm-offset-2">
+  <h2>Signup</h2>
+  <div *ngIf="signupForm">
+    <alert></alert>
+    <form [formGroup]="signupForm" novalidate (ngSubmit)="submit(signupForm.value)">
+      <div class="form-group row">
+        <label>Username</label>
+        <input class="form-control" formControlName="username">
+
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['username'].hasError('required') && signupForm.controls['username'].touched">
+          <small>Username is mandatory</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['username'].hasError('minlength') && signupForm.controls['username'].touched">
+                 <small>Username should be minimum 8 characters</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['username'].hasError('maxlength') && signupForm.controls['username'].touched">
+                 <small>Username allowed Maximum 30 characters only</small>
+        </span>
+
+      </div>
+
+      <div class="form-group row">
+        <label>First Name</label>
+        <input class="form-control" formControlName="first_name">
+         <span class="text text-danger"
+              *ngIf="signupForm.controls['first_name'].hasError('required') && signupForm.controls['first_name'].touched">
+          <small>First name is mandatory</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['first_name'].hasError('minlength') && signupForm.controls['first_name'].touched">
+                 <small>First Name should be minimum 5 characters</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['first_name'].hasError('maxlength') && signupForm.controls['first_name'].touched">
+                 <small>First Name allowed Maximum 60 characters only</small>
+        </span>
+
+      </div>
+      <div class="form-group row">
+        <label>Last Name</label>
+        <input class="form-control" formControlName="last_name">
+           <span class="text text-danger"
+              *ngIf="signupForm.controls['last_name'].hasError('required') && signupForm.controls['last_name'].touched">
+          <small>Last name is mandatory</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['last_name'].hasError('minlength') && signupForm.controls['last_name'].touched">
+                 <small>Last Name should be minimum 5 characters</small>
+        </span>
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['last_name'].hasError('maxlength') && signupForm.controls['last_name'].touched">
+                 <small>Last Name allowed Maximum 60 characters only</small>
+        </span>
+
+      </div>
+
+      <div class="form-group row">
+        <label>Email</label>
+        <input class="form-control" type="email" email="true" formControlName="email">
+        <span class="text text-danger"
+              *ngIf="signupForm.controls['email'].hasError('email') && signupForm.controls['email'].touched">
+                 <small>Invalid Email Address</small>
+        </span>
+      </div>
+
+      <div class="form-group row">
+        <label>Phone Number</label>
+        <input class="form-control" formControlName="phone_number">
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Signup</button>
+      <a class="btn btn-primary" (click)="redirectToLogin()">Already Signup. Loing here</a>
+    </form>
+
+  </div>
+</div>
+
+</div>

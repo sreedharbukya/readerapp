@@ -1,0 +1,73 @@
+version: "2"
+services:
+    web:
+      restart: always
+      build: .
+      expose:
+        - "8000"
+      ports:
+        - "8000:8000"
+      links:
+        - postgres:postgres
+      env_file: env
+      command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      networks:
+        - mynetwork
+
+    uiapp:
+      restart: always
+      build: ./readerui/
+      command: npm start 
+      expose:
+        - "4200"
+      ports:
+        - "4200:4200"
+      
+      networks:
+        - mynetwork
+
+    nginx:
+      restart: always
+      build: ./nginx/
+      ports:
+        - "8080:8080"
+      links:
+        - web:web
+        - uiapp:uiapp
+      networks:
+        - mynetwork
+
+    postgres:
+      restart: always
+      image: postgres:latest
+      volumes_from:
+        - data
+      volumes:
+        - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        - ./backups/postgresql:/backup
+      env_file:
+        - env
+      expose:
+        - "5432"
+
+      networks:
+        - mynetwork
+
+    data:
+      restart: always
+      image: alpine
+      volumes:
+        - /var/lib/postgresql
+      command: "true"
+
+networks:
+    mynetwork: 
+        driver: bridge
+
+
+
+
+
+
+
+

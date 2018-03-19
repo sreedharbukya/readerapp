@@ -1,0 +1,5 @@
+from author_admin import AuthorAdmin
+from reader_admin import ReaderAdmin
+from book_admin import BookAdmin
+from book_review_admin import BookReviewAdmin
+from book_overall_rating_admin import BookOverAllRatingAdmin

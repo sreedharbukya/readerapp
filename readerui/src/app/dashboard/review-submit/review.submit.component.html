@@ -1,0 +1,15 @@
+<div *ngIf="reviewForm">
+    <form class="form-inline" [formGroup]="reviewForm" novalidate
+        (ngSubmit)="createReview(reviewForm.value, book.isbn_number)">
+    <div class="form-group">
+      <label class="col-md-3">Rating</label>
+      <ngb-rating  class="form-control" [formControl]="reviewForm.controls.rating" max="5"></ngb-rating>
+    </div>
+    <div class="form-group">
+      <label>Comments</label>
+      <input type="text" class="form-control" formControlName="comment">
+    </div>
+    <button class="btn btn-primary" [disabled]="!reviewForm.valid" type="submit">Submit</button>
+  </form>
+
+</div>
